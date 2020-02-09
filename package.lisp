@@ -1,11 +1,15 @@
 ;;;; package.lisp
 
-(cl:in-package :cl-user)
+(cl:in-package cl-user)
 
-(defpackage :srfi-31
+(defpackage "https://github.com/g000001/srfi-31"
   (:use)
-  (:export :rec))
+  (:export rec)
+  (:size 1))
 
-(defpackage :srfi-31.internal
-  (:use :srfi-31 :cl :fiveam :mbe))
+(defpackage "https://github.com/g000001/srfi-31#internals"
+  (:use "https://github.com/g000001/srfi-31"
+        cl
+        fiveam
+        mbe))
 

@@ -1,10 +1,10 @@
 ;;;; srfi-31.lisp
 
-(cl:in-package :srfi-31.internal)
+(cl:in-package "https://github.com/g000001/srfi-31#internals")
 
-(def-suite srfi-31)
 
-(in-suite srfi-31)
+(def-suite* srfi-31)
+
 
 (defmacro letrec ((&rest binds) &body body)
   `(let (,@(mapcar (cl:lambda (x)
@@ -14,11 +14,13 @@
      (labels (,@(remove nil
                   (mapcar (cl:lambda (x &aux (name (car x)))
                             `(,name
-                               (&rest args)
-                               (apply ,name args)))
+                              (&rest args)
+                              (declare (dynamic-extent args))
+                              (apply ,name args)))
                           binds)))
        (psetq ,@(apply #'append binds))
        ,@body)))
+
 
 (define-syntax rec
   (syntax-rules ()
@@ -26,6 +28,7 @@
      (letrec ( (NAME (lambda VARIABLES . BODY)) ) NAME))
     ((rec NAME EXPRESSION)
      (letrec ( (NAME EXPRESSION) ) NAME))))
+
 
 (test rec-var
   (is (equal (labels ((|funcall . cdr| (x times)
@@ -40,6 +43,7 @@
                        (car (|funcall . cdr| x 4)) )))
              '(1 1 1 1 1) )))
 
+
 (test rec-fun
   (is (= (funcall
           (rec (F N)
@@ -50,4 +54,7 @@
           10)
          3628800)))
 
-;;; eof
+
+;;; *EOF*
+
+

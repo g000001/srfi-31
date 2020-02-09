@@ -1,4 +1,7 @@
-* SRFI 31: A special form `rec' for recursive evaluation
+# SRFI 31 for CL: A special form `rec' for recursive evaluation
+
+* https://srfi.schemers.org/srfi-31
+* License: Unlicense
 
 - Copyright (C) Dr. Mirko Luedde (2002). All Rights Reserved.
 
